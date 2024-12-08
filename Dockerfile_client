@@ -1,0 +1,15 @@
+# Стадия сборки
+FROM node:alpine AS builder
+
+WORKDIR /usr/src/app/client
+
+COPY client/package*.json ./
+RUN npm install
+
+COPY client/ ./
+RUN npm run build
+
+# Стадия публикации
+FROM nginx:alpine
+
+COPY --from=builder /usr/src/app/client/build /usr/share/nginx/html
