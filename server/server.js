@@ -10,8 +10,8 @@ const app = express();
 
 // Настраиваем middleware для обработки JSON и CORS
 app.use(bodyParser.json());
-
 app.use(cors());
+
 // Подключаемся к базе данных MongoDB
 mongoose.connect('mongodb+srv://12345kolt:LakzDpIV8TuxkIvz@cluster0.t0v74.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0').then(() => {
   console.log("Подключено к базе данных");
@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model('User', userSchema);
+
 
 // Маршрут для создания пользователя
 app.post('/user/create', async (req, res) => {
@@ -90,6 +91,4 @@ app.put('/user/edit/:id', async (req, res) => {
 
 // Запускаем сервер
 const port = 3000;
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-})
+app.listen(port, () => {})

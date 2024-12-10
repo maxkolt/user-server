@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+
 function App() {
   const [users, setUsers] = useState([]);
   const [newUserId, setNewUserId] = useState("");
@@ -12,22 +13,11 @@ function App() {
   const [editedName, setEditedName] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+
 
   const axiosInstance = axios.create({
     baseURL: "http://localhost:3000",
   });
-
-  const fetchUsers = async () => {
-    try {
-      const response = await axiosInstance.get("/user");
-      setUsers(response.data);
-    } catch (error) {
-      setErrorMessage(`Ошибка при загрузке пользователей: ${error.message}`);
-    }
-  };
 
   const handleCreateUser = async () => {
     if (newUserId.trim() && newName.trim() && newAbout.trim()) {
@@ -40,7 +30,6 @@ function App() {
         setNewUserId("");
         setNewName("");
         setNewAbout("");
-        fetchUsers();
         setErrorMessage(null); // Сбрасываем ошибку после успешной операции
       } catch (error) {
         setErrorMessage(`Ошибка при создании пользователя: ${error.message}`);
@@ -74,7 +63,6 @@ function App() {
         });
         setEditedUserId("");
         setEditedName("");
-        fetchUsers();
         setErrorMessage(null);
       } catch (error) {
         setErrorMessage(`Ошибка при редактировании пользователя: ${error.message}`);
